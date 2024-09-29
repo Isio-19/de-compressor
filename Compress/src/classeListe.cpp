@@ -2,35 +2,41 @@
 
 using namespace std;
 
-liste::liste(){
+liste::liste() {
     tete = NULL;
     nb_noeuds = 0;
 }
 
-void liste::inserer_tete(noeud *n){
-    n -> suivant = tete;                //pour pointer vers à ce que pointe tete, donc le noeud suivant
-    tete = n;                           //change tete pour qu'il pointe vers le nouveau noeud
+void liste::inserer_tete(noeud *n) {
+    // pour pointer vers à ce que pointe tete, donc le noeud suivant
+    n -> suivant = tete;                
+    // change tete pour qu'il pointe vers le nouveau noeud
+    tete = n;                           
     nb_noeuds++;    
 }
 
-void liste::inserer_tete(const char c, int effectif){
+void liste::inserer_tete(const char c, int effectif) {
     noeud *noeudInsert = new noeud(c, effectif, NULL, NULL, NULL);
     this -> inserer_tete(noeudInsert);
 }
 
-void liste::inserer_caracteres(char *s, int taille){
+void liste::inserer_caracteres(char *s, int taille) {
     int tabEffectif[256];
-    for(int i = 0; i<256; i++)                      //création du tableau des effectifs et initialisation à 0
+    for(int i = 0; i<256; i++)                      
+        // création du tableau des effectifs et initialisation à 0
         tabEffectif[i] = 0;                         
+
     for(int i = 0; i<taille; i++) 
-        tabEffectif[int(s[i])]++;                   //incrémentation du tableau
+        // incrémentation du tableau
+        tabEffectif[int(s[i])]++;
+    
     for(int i = 0; i<256; i++)
         if(tabEffectif[i] != 0)
             inserer_tete(char(i), tabEffectif[i]);
 }
 
-void liste::affichageListe(){
-    if(tete != NULL){
+void liste::affichageListe() {
+    if(tete != NULL) {
         noeud *noeudAffichage = tete;
         while(noeudAffichage -> suivant != NULL){
             cout << noeudAffichage -> c << noeudAffichage -> occ << " ";
@@ -41,53 +47,37 @@ void liste::affichageListe(){
     else cout << "La liste est nulle!" << endl;
 }
 
-noeud *liste::supprimer_p_petit(){
-    /*if(tete == NULL) return NULL;
-    int occ_PP = tete -> occ;
-    noeud *noeudPrecedent = NULL;
-    noeud *noeudPP = NULL;
-    noeud *noeudActuel = tete;
-    while(noeudActuel){
-        if((noeudActuel -> occ) < occ_PP){
-            occ_PP = noeudActuel -> occ;
-            noeudPP = noeudPrecedent;
-        }
-        noeudPrecedent = noeudActuel;
-        noeudActuel = noeudActuel -> suivant;
-    }
-    if(noeudPP == NULL){
-        noeudActuel = tete;
-        tete = tete -> suivant;
-        nb_noeuds--;
-        return noeudActuel;
-    }
-    noeudActuel = noeudPP -> suivant;
-    noeudPP -> suivant = noeudPP -> suivant -> suivant;
-    nb_noeuds--;
-    return noeudActuel;*/
+noeud *liste::supprimer_p_petit() {
+    if (tete==NULL) 
+        return NULL;
 
-    if(tete==NULL) return NULL;
     int plusPetiteOcc = tete -> occ;
     noeud *pred = NULL;
     noeud *ppred = NULL;
     noeud *C = tete;
-    while(C){
-        if(C -> occ < plusPetiteOcc){            //ici, C correspond au noeudActuel
+    while (C) {
+        // ici, C correspond au noeudActuel
+        if(C -> occ < plusPetiteOcc){            
             plusPetiteOcc = C -> occ;
             ppred=pred;
         }
         pred = C;
         C = C -> suivant;
     }
-    if (ppred == NULL){                 //hors de la boucle, C correspond au noeud plus petit
-        C = tete;                       //on mets C à ce que pointe tete, donc le noeud le plus petit puisque ppred n'a pas été actualisé
-        tete = tete -> suivant;         //et on 'coupe' le chemin de tete à C
+    // hors de la boucle, C correspond au noeud plus petit
+    if (ppred == NULL) {                 
+        // on mets C à ce que pointe tete, donc le noeud le plus petit puisque ppred n'a pas été actualisé
+        C = tete;                       
+        // et on 'coupe' le chemin de tete à C
+        tete = tete -> suivant;         
         nb_noeuds--;
         return C;
     }
-    else{
-        C = ppred -> suivant;                               //C est égal au noeud suivant du noeud qui se trouve avant le noeud PP (donc C == PP) 
-        ppred -> suivant = ppred -> suivant -> suivant;     //on casse la liaison entre pred et le plus petit
+    else {
+        // C'est égal au noeud suivant du noeud qui se trouve avant le noeud PP (donc C == PP) 
+        C = ppred -> suivant;                               
+        // on casse la liaison entre pred et le plus petit
+        ppred -> suivant = ppred -> suivant -> suivant;     
         nb_noeuds--;
         return C;
     }
