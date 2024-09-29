@@ -1,4 +1,4 @@
-#include "classeNoeud.hpp"
+#include "../include/classeNoeud.hpp"
 
 noeud::noeud(const char a_c = '\0', int a_occ = 0, noeud *a_suiv = NULL, noeud *a_fg = NULL, noeud *a_fd = NULL){
     c = a_c;

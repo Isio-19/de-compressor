@@ -1,5 +1,5 @@
-#include "classeListe.hpp"
-#include "classeArbre.hpp"
+#include "../include/classeListe.hpp"
+#include "../include/classeArbre.hpp"
 
 arbre::arbre(){
     r = NULL;

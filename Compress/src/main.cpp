@@ -2,8 +2,8 @@
 #include <string>
 #include <bitset>
 
-#include "classeListe.hpp"
-#include "classeArbre.hpp"
+#include "../include/classeListe.hpp"
+#include "../include/classeArbre.hpp"
 
 using namespace std;
 
