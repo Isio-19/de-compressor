@@ -14,17 +14,17 @@ arbre::arbre(std::string nomFichier) {
 }
 
 noeud *arbre::construireArbre(liste *tabNoeuds) {
-    noeud *noeudTete;
+    noeud *noeudTete;   
     do {
         noeud *noeudPP1 = tabNoeuds -> supprimer_p_petit();
         noeud *noeudPP2 = tabNoeuds -> supprimer_p_petit();
-        // std::cout << noeudPP1 -> c << noeudPP1 -> occ << " ";
-        // std::cout << noeudPP2 -> c << noeudPP2 -> occ << " "; 
-        noeudTete = new noeud('\0', noeudPP1 -> occ + noeudPP2 -> occ, NULL, noeudPP1, noeudPP2);
+        std::cout << noeudPP1 -> c << noeudPP1 -> occ << " ";
+        std::cout << noeudPP2 -> c << noeudPP2 -> occ << " "; 
+        noeudTete = new noeud('|', noeudPP1 -> occ + noeudPP2 -> occ, NULL, noeudPP1, noeudPP2);
         tabNoeuds -> inserer_tete(noeudTete);
-    } while(noeudTete -> suivant != NULL);
+        std::cout << std::endl;
+    } while (noeudTete -> suivant != NULL);
     r = noeudTete;
-    // std::cout << std::endl;
     return noeudTete;
 }
 
@@ -92,3 +92,17 @@ void arbre::ecrireDansFichier(char *chaineAEcrire, std::string & destination) {
     MyFile << chaineAEcrire;
     MyFile.close();
 }
+
+void arbre::ecrire_arbre(std::string & fn) {
+    std::ofstream of(fn.c_str());
+    if (r)
+        r -> ecrire_noeud(of);
+
+    of.close();
+}
+
+// void arbre::lire(std::string & s) {
+//     r = new noeud(s[0], NULL, NULL, NULL);
+//     int ind = 0;
+//     r.
+// }

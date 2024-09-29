@@ -96,6 +96,7 @@ char *liste::readfile(const string & filename, int & taille){
     f.seekg(0, ios::beg);
     f.read(s, taille);
     f.close();
+
     return s;
 }
 

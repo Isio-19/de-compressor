@@ -12,7 +12,7 @@ OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 $(ODIR)/%.o: %.cpp $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-compress: $(OBJ)
+program: $(OBJ)
 	$(CC) -o $@ $^
 
 .PHONY: clean
